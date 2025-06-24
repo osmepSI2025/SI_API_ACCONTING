@@ -1,0 +1,6 @@
+@SI_ACC_HostAddress = http://localhost:5102
+
+GET {{SI_ACC_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -1,0 +1,113 @@
+{
+  "x-generator": "NSwag v13.20.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v10.0.0.0))",
+  "swagger": "2.0",
+  "info": {
+    "title": "API SME ACCOUNT",
+    "description": "API documentation using Swagger 2.0",
+    "version": "v1"
+  },
+  "paths": {
+    "/api/SYS-ACCOUNT/Master/GetBudgetavailable": {
+      "get": {
+        "tags": [
+          "Accounting"
+        ],
+        "operationId": "Accounting_Get_Budgetavailable",
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "",
+            "schema": {
+              "type": "file"
+            }
+          }
+        }
+      }
+    },
+    "/api/SYS-ACCOUNT/batch-Budgetavailable": {
+      "get": {
+        "tags": [
+          "Accounting"
+        ],
+        "operationId": "Accounting_Batch_Budgetavailable",
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "",
+            "schema": {
+              "type": "file"
+            }
+          }
+        }
+      }
+    },
+    "/api/SYS-ACCOUNT/Budgetentire": {
+      "get": {
+        "tags": [
+          "Accounting"
+        ],
+        "operationId": "Accounting_Get_MBudgetentire",
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "",
+            "schema": {
+              "type": "file"
+            }
+          }
+        }
+      }
+    },
+    "/api/SYS-ACCOUNT/batch-Budgetentire": {
+      "get": {
+        "tags": [
+          "Accounting"
+        ],
+        "operationId": "Accounting_Batch_MBudgetentire",
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "",
+            "schema": {
+              "type": "file"
+            }
+          }
+        }
+      }
+    },
+    "/api/SYS-ACCOUNT/BudgetMapping": {
+      "get": {
+        "tags": [
+          "Accounting"
+        ],
+        "operationId": "Accounting_Get_BudgetMapping",
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "",
+            "schema": {
+              "type": "file"
+            }
+          }
+        }
+      }
+    },
+    "/api/SYS-ACCOUNT/batch-BudgetMapping": {
+      "get": {
+        "tags": [
+          "Accounting"
+        ],
+        "operationId": "Accounting_Batch_BudgetMapping",
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "",
+            "schema": {
+              "type": "file"
+            }
+          }
+        }
+      }
+    }
+  }
+}

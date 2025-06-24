@@ -1,0 +1,38 @@
+{
+  "value": [
+    {
+      "entryno": 1,
+      "budgetlevel": 2,
+      "budgetcode": "BGT-2025-002",
+      "budgetname": "งบส่งเสริม SMEs",
+      "budgetyear": "2025",
+      "budgetplan": "แผนหลัก 2025",
+      "budgetstrategies": "พัฒนาศักยภาพ",
+      "budgetactivites": "สนับสนุนเงินทุนหมุนเวียน",
+      "PostingDate": "2025-01-15",
+      "documentno": "DOC-INV-2025-001",
+      "originalamount": 1500000.00,
+      "transdescription": "โอนงบประมาณ",
+      "transdescription2": "แผนโอนปี 2025",
+      "transfertolevel": 3,
+      "transfertocode": "TRF-001",
+      "referencebudgetcode": "REF-2024-998",
+      "currentbudgetstatus": "Active",
+      "reservedamount": 200000.00,
+      "actualamount": 1200000.00,
+      "advanceamount": 100000.00,
+      "voucheradvamt": 30000.00,
+      "voucherreceiveamt": 1150000.00,
+      "voucherpaymentamt": 1000000.00,
+      "remainingamount": 250000.00,
+      "activityoutsourcefund": true,
+      "budgetdepartment": "ฝ่ายแผนงาน",
+      "budgetproject": "โครงการสนับสนุน SMEs ระยะที่ 1",
+      "apimappingid": "MAP001",
+      "AuxiliaryIndex1": 1,
+      "AuxiliaryIndex2": "หมายเหตุเพิ่มเติม",
+      "AuxiliaryIndex3": 5,
+      "AuxiliaryIndex4": 10
+    }
+  ]
+}

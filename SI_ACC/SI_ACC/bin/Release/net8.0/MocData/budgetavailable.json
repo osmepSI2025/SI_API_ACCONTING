@@ -1,0 +1,31 @@
+{
+  "value": [
+    {
+      "budgetlevel": 1,
+      "budgetid": "BGT2025-001",
+      "budgetname": "งบประมาณพัฒนาระบบ",
+      "budgetstatus": "Active",
+      "budgetstartdate": "2025-01-01",
+      "budgetexpiredate": "2025-12-31",
+      "initialamount": 1000000.00,
+      "outsourcefund": 200000.00,
+      "availableamount": 800000.00,
+      "budgetreceive": 500000.00,
+      "budgetreturn": 50000.00,
+      "referencebudgetcode": "REF2024-099",
+      "budgetLv1code": "LV1-01",
+      "budgetLv2code": "LV2-02",
+      "budgetLv3code": "LV3-05",
+      "budgetLv4code": "",
+      "budgetLv5code": "",
+      "budgetLv6code": "",
+      "detailinitialamount": 300000.00,
+      "budgetamount": 950000.00,
+      "allocateamount": 700000.00,
+      "reservedamount": 100000.00,
+      "advanceamount": 30000.00,
+      "actualamount": 670000.00,
+      "voucherpaymentamt": 250000.00
+    }
+  ]
+}

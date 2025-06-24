@@ -1,0 +1,13 @@
+{
+  "value": [
+    {
+      "budgetlevel": 1,
+      "budgetid": "BG-2025-001",
+      "budgetname": "งบประมาณพัฒนาระบบสารสนเทศ",
+      "mappingcode": "MAP-001",
+      "mappingname": "แผนแม่บทเทคโนโลยี",
+      "mappingparentcode": "MAP-000",
+      "AuxiliaryIndex1": 10
+    }
+  ]
+}

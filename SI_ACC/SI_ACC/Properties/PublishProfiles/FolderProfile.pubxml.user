@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- https://go.microsoft.com/fwlink/?LinkID=208121. -->
+<Project>
+  <PropertyGroup>
+    <_PublishTargetUrl>D:\Deploy\SME\SI\SI_API_ACC</_PublishTargetUrl>
+    <History>True|2025-06-21T02:02:34.1399528Z||;True|2025-05-26T16:54:46.8788072+07:00||;True|2025-05-26T11:57:36.0052612+07:00||;True|2025-05-26T08:00:37.1955220+07:00||;False|2025-05-26T08:00:29.3661208+07:00||;True|2025-05-24T21:04:32.1638772+07:00||;True|2025-05-24T20:53:57.3921058+07:00||;True|2025-05-24T20:53:52.8284772+07:00||;True|2025-05-24T20:24:51.9617066+07:00||;True|2025-05-24T20:20:52.7832027+07:00||;True|2025-05-24T20:19:06.3357188+07:00||;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+</Project>
