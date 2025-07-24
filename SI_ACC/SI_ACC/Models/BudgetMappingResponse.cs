@@ -15,5 +15,5 @@ public class BudgetMappingItem
     public string? MappingCode { get; set; }
     public string? MappingName { get; set; }
     public string? MappingParentCode { get; set; }
-    public int? AuxiliaryIndex1 { get; set; }
+    public string? AuxiliaryIndex1 { get; set; }
 }

@@ -122,7 +122,7 @@ public class TBudgetMappingService
                 try
                 {
                     // Use BudgetId, MappingCode, and MappingParentCode as key for GetByIdAsync
-                    var existing = await _repository.GetByIdAsync(item.BudgetId, item.MappingCode, item.MappingParentCode);
+                    var existing = await _repository.GetByIdAsync(item.BudgetId, item.MappingCode, item.AuxiliaryIndex1);
 
                     if (existing == null)
                     {

@@ -19,5 +19,5 @@ public partial class TBudgetMapping
 
     public string? MappingParentCode { get; set; }
 
-    public int? AuxiliaryIndex1 { get; set; }
+    public string? AuxiliaryIndex1 { get; set; }
 }

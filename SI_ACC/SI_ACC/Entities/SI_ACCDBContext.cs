@@ -25,9 +25,9 @@ public partial class SI_ACCDBContext : DbContext
 
     public virtual DbSet<TBudgetMapping> TBudgetMappings { get; set; }
 
-//    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-//        => optionsBuilder.UseSqlServer("Server=192.168.9.155;Database=bluecarg_SME_API_Account;User Id=sa;Password=Osmep@2025;TrustServerCertificate=True;");
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Server=192.168.9.155;Database=bluecarg_SME_API_Account;User Id=sa;Password=Osmep@2025;TrustServerCertificate=True;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -131,6 +131,7 @@ public partial class SI_ACCDBContext : DbContext
             entity.ToTable("T_BudgetMapping", "SME_Account");
 
             entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.AuxiliaryIndex1).HasMaxLength(50);
             entity.Property(e => e.BudgetId).HasMaxLength(50);
             entity.Property(e => e.BudgetName).HasMaxLength(255);
             entity.Property(e => e.MappingCode).HasMaxLength(50);

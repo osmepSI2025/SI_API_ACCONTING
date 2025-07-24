@@ -18,11 +18,11 @@ public class TBudgetMappingRepository
         return await _context.TBudgetMappings.ToListAsync();
     }
 
-    public async Task<TBudgetMapping?> GetByIdAsync(string budgetid,string mappingCode, string mappingparentcode)
+    public async Task<TBudgetMapping?> GetByIdAsync(string budgetid,string mappingCode, string auxiliaryIndex1)
     {
         return await _context.TBudgetMappings.FirstOrDefaultAsync(x => x.BudgetId == budgetid
 
-       && x.MappingCode == mappingCode && x.MappingParentCode == mappingparentcode
+       && x.MappingCode == mappingCode && x.AuxiliaryIndex1 == auxiliaryIndex1
         );
     }
 
