@@ -215,17 +215,34 @@ namespace SI_ACC.Services
                 if (_FlagDev == "Y")
                 {
                     url = apiModels.Urldevelopment ?? throw new Exception("URL is missing.");
-                    requestJson = url;
+                    if (xdata != null)
+                    {
+                        requestJson = url + "?$filter=" + xdata;
+                    }
+                    else
+                    {
+                        requestJson = url;
+
+                    }
                 }
                 else
                 {
-                    requestJson = url;
+                    if (xdata != null)
+                    {
+                        requestJson = url +"?$filter="+ xdata;
+                    }
+                    else
+                    {
+                        requestJson = url;
+
+                    }
+                   
                 }
 
                 // Create request
                 var request = new HttpRequestMessage(
                     apiModels.MethodType == "POST" ? HttpMethod.Post : HttpMethod.Get,
-                    url
+                    requestJson
                 );
 
                 // Set Authorization Headers

@@ -27,15 +27,15 @@ public class MBudgetentireService
 
     }
 
-    public async Task<BudgetEntireResponse> GetAllAsync()
+    public async Task<BudgetEntireResponse> GetAllAsync(string? filter)
     {
         try
         {
-            var entities = await _repository.GetAllAsync();
+            var entities = await _repository.GetAllAsync(filter);
             if (entities == null || !entities.Any())
             {
                 await BatchEndOfDay_BudgetEntire();
-                entities = await _repository.GetAllAsync();
+                entities = await _repository.GetAllAsync(filter);
                 if (entities == null || !entities.Any())
                 {
                     return new BudgetEntireResponse { Value = new List<BudgetEntireItem>() };
@@ -163,6 +163,141 @@ public class MBudgetentireService
         }).FirstOrDefault(); // Use FirstOrDefault to handle empty lists
 
         var apiResponse = await _serviceApi.GetDataApiAsync(apiParam, null);
+        var result = JsonSerializer.Deserialize<BudgetEntireResponse>(apiResponse, options);
+
+        BudgetEntireResponse = result ?? new BudgetEntireResponse();
+
+        if (BudgetEntireResponse.Value != null)
+        {
+            foreach (var item in BudgetEntireResponse.Value)
+            {
+                try
+                {
+                    // Use both EntryNo and BudgetCode as key for GetByIdAsync
+                    var existing = await _repository.GetByIdAsync(item.EntryNo?.ToString(), item.BudgetCode);
+
+                    if (existing == null)
+                    {
+                        // Create new record
+                        var newData = new MBudgetentire
+                        {
+                            EntryNo = item.EntryNo,
+                            BudgetLevel = item.BudgetLevel,
+                            BudgetCode = item.BudgetCode,
+                            BudgetName = item.BudgetName,
+                            BudgetYear = item.BudgetYear,
+                            BudgetPlan = item.BudgetPlan,
+                            BudgetStrategies = item.BudgetStrategies,
+                            BudgetActivites = item.BudgetActivites,
+                            PostingDate = item.PostingDate,
+                            DocumentNo = item.DocumentNo,
+                            OriginalAmount = item.OriginalAmount,
+                            TransDescription = item.TransDescription,
+                            TransDescription2 = item.TransDescription2,
+                            TransferToLevel = item.TransferToLevel,
+                            TransferToCode = item.TransferToCode,
+                            ReferenceBudgetCode = item.ReferenceBudgetCode,
+                            CurrentBudgetStatus = item.CurrentBudgetStatus,
+                            ReservedAmount = item.ReservedAmount,
+                            ActualAmount = item.ActualAmount,
+                            AdvanceAmount = item.AdvanceAmount,
+                            VoucherAdvAmt = item.VoucherAdvAmt,
+                            VoucherReceiveAmt = item.VoucherReceiveAmt,
+                            VoucherPaymentAmt = item.VoucherPaymentAmt,
+                            RemainingAmount = item.RemainingAmount,
+                            ActivityOutsourceFund = item.ActivityOutsourceFund,
+                            BudgetDepartment = item.BudgetDepartment,
+                            BudgetProject = item.BudgetProject,
+                            ApiMappingId = item.ApiMappingId,
+                            AuxiliaryIndex1 = item.AuxiliaryIndex1,
+                            AuxiliaryIndex2 = item.AuxiliaryIndex2,
+                            AuxiliaryIndex3 = item.AuxiliaryIndex3,
+                            AuxiliaryIndex4 = item.AuxiliaryIndex4
+                        };
+
+                        await _repository.AddAsync(newData);
+                        Console.WriteLine($"[INFO] Created new MBudgetentire with BudgetCode {newData.BudgetCode}");
+                    }
+                    else
+                    {
+                        // Update existing record
+                        existing.EntryNo = item.EntryNo;
+                        existing.BudgetLevel = item.BudgetLevel;
+                        existing.BudgetCode = item.BudgetCode;
+                        existing.BudgetName = item.BudgetName;
+                        existing.BudgetYear = item.BudgetYear;
+                        existing.BudgetPlan = item.BudgetPlan;
+                        existing.BudgetStrategies = item.BudgetStrategies;
+                        existing.BudgetActivites = item.BudgetActivites;
+                        existing.PostingDate = item.PostingDate;
+                        existing.DocumentNo = item.DocumentNo;
+                        existing.OriginalAmount = item.OriginalAmount;
+                        existing.TransDescription = item.TransDescription;
+                        existing.TransDescription2 = item.TransDescription2;
+                        existing.TransferToLevel = item.TransferToLevel;
+                        existing.TransferToCode = item.TransferToCode;
+                        existing.ReferenceBudgetCode = item.ReferenceBudgetCode;
+                        existing.CurrentBudgetStatus = item.CurrentBudgetStatus;
+                        existing.ReservedAmount = item.ReservedAmount;
+                        existing.ActualAmount = item.ActualAmount;
+                        existing.AdvanceAmount = item.AdvanceAmount;
+                        existing.VoucherAdvAmt = item.VoucherAdvAmt;
+                        existing.VoucherReceiveAmt = item.VoucherReceiveAmt;
+                        existing.VoucherPaymentAmt = item.VoucherPaymentAmt;
+                        existing.RemainingAmount = item.RemainingAmount;
+                        existing.ActivityOutsourceFund = item.ActivityOutsourceFund;
+                        existing.BudgetDepartment = item.BudgetDepartment;
+                        existing.BudgetProject = item.BudgetProject;
+                        existing.ApiMappingId = item.ApiMappingId;
+                        existing.AuxiliaryIndex1 = item.AuxiliaryIndex1;
+                        existing.AuxiliaryIndex2 = item.AuxiliaryIndex2;
+                        existing.AuxiliaryIndex3 = item.AuxiliaryIndex3;
+                        existing.AuxiliaryIndex4 = item.AuxiliaryIndex4;
+
+                        await _repository.UpdateAsync(existing);
+                        Console.WriteLine($"[INFO] Updated MBudgetentire with BudgetCode {existing.BudgetCode}");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"[ERROR] Failed to process MBudgetentire BudgetCode {item.BudgetCode}: {ex.Message}");
+                }
+            }
+        }
+
+
+
+    }
+    public async Task BatchEndOfDay_BudgetEntireBySearch(string filter)
+    {
+        var options = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true,
+            WriteIndented = true
+        };
+        var BudgetEntireResponse = new BudgetEntireResponse();
+        var LApi = await _repositoryApi.GetAllAsync(new MapiInformationModels { ServiceNameCode = "budgetentires" });
+        var apiParam = LApi.Select(x => new MapiInformationModels
+        {
+            ServiceNameCode = x.ServiceNameCode,
+            ApiKey = x.ApiKey,
+            AuthorizationType = x.AuthorizationType,
+            ContentType = x.ContentType,
+            CreateDate = x.CreateDate,
+            Id = x.Id,
+            MethodType = x.MethodType,
+            ServiceNameTh = x.ServiceNameTh,
+            Urldevelopment = x.Urldevelopment,
+            Urlproduction = x.Urlproduction,
+            Username = x.Username,
+            Password = x.Password,
+            UpdateDate = x.UpdateDate,
+            Bearer = x.Bearer,
+            AccessToken = x.AccessToken,
+
+        }).FirstOrDefault(); // Use FirstOrDefault to handle empty lists
+
+        var apiResponse = await _serviceApi.GetDataApiAsync(apiParam, filter);
         var result = JsonSerializer.Deserialize<BudgetEntireResponse>(apiResponse, options);
 
         BudgetEntireResponse = result ?? new BudgetEntireResponse();

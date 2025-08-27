@@ -143,15 +143,133 @@ public class MBudgetavailableService
 
 
     }
-    public async Task<BudgetAvailableResponse> GetAllAsync()
+    public async Task BatchEndOfDay_BudgetavailableBySearch(string filter)
+    {
+        var options = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true,
+            WriteIndented = true
+        };
+        var BudgetAvailableResponse = new BudgetAvailableResponse();
+        var LApi = await _repositoryApi.GetAllAsync(new MapiInformationModels { ServiceNameCode = "budgetavailable" });
+        var apiParam = LApi.Select(x => new MapiInformationModels
+        {
+            ServiceNameCode = x.ServiceNameCode,
+            ApiKey = x.ApiKey,
+            AuthorizationType = x.AuthorizationType,
+            ContentType = x.ContentType,
+            CreateDate = x.CreateDate,
+            Id = x.Id,
+            MethodType = x.MethodType,
+            ServiceNameTh = x.ServiceNameTh,
+            Urldevelopment = x.Urldevelopment,
+            Urlproduction = x.Urlproduction,
+            Username = x.Username,
+            Password = x.Password,
+            UpdateDate = x.UpdateDate,
+            Bearer = x.Bearer,
+            AccessToken = x.AccessToken,
+
+        }).FirstOrDefault(); // Use FirstOrDefault to handle empty lists
+
+        var apiResponse = await _serviceApi.GetDataApiAsync(apiParam, filter);
+        var result = JsonSerializer.Deserialize<BudgetAvailableResponse>(apiResponse, options);
+
+        BudgetAvailableResponse = result ?? new BudgetAvailableResponse();
+
+        if (BudgetAvailableResponse.Value != null)
+        {
+            foreach (var item in BudgetAvailableResponse.Value)
+            {
+                try
+                {
+                    var existing = await _repository.GetByIdAsync(item.BudgetId);
+
+                    if (existing == null)
+                    {
+                        // Create new record
+                        var newData = new MBudgetavailable
+                        {
+                            BudgetLevel = item.BudgetLevel,
+                            BudgetId = item.BudgetId,
+                            BudgetName = item.BudgetName,
+                            BudgetStatus = item.BudgetStatus,
+                            BudgetStartDate = item.BudgetStartDate,
+                            BudgetExpireDate = item.BudgetExpireDate,
+                            InitialAmount = item.InitialAmount,
+                            OutsourceFund = item.OutsourceFund,
+                            AvailableAmount = item.AvailableAmount,
+                            BudgetReceive = item.BudgetReceive,
+                            BudgetReturn = item.BudgetReturn,
+                            ReferenceBudgetCode = item.ReferenceBudgetCode,
+                            BudgetLv1Code = item.BudgetLv1Code,
+                            BudgetLv2Code = item.BudgetLv2Code,
+                            BudgetLv3Code = item.BudgetLv3Code,
+                            BudgetLv4Code = item.BudgetLv4Code,
+                            BudgetLv5Code = item.BudgetLv5Code,
+                            BudgetLv6Code = item.BudgetLv6Code,
+                            DetailInitialAmount = item.DetailInitialAmount,
+                            BudgetAmount = item.BudgetAmount,
+                            AllocateAmount = item.AllocateAmount,
+                            ReservedAmount = item.ReservedAmount,
+                            AdvanceAmount = item.AdvanceAmount,
+                            ActualAmount = item.ActualAmount,
+                            VoucherPaymentAmt = item.VoucherPaymentAmt
+                        };
+
+                        await _repository.AddAsync(newData);
+                        Console.WriteLine($"[INFO] Created new MBudgetavailable with BudgetId {newData.BudgetId}");
+                    }
+                    else
+                    {
+                        // Update existing record
+                        existing.BudgetLevel = item.BudgetLevel;
+                        existing.BudgetName = item.BudgetName;
+                        existing.BudgetStatus = item.BudgetStatus;
+                        existing.BudgetStartDate = item.BudgetStartDate;
+                        existing.BudgetExpireDate = item.BudgetExpireDate;
+                        existing.InitialAmount = item.InitialAmount;
+                        existing.OutsourceFund = item.OutsourceFund;
+                        existing.AvailableAmount = item.AvailableAmount;
+                        existing.BudgetReceive = item.BudgetReceive;
+                        existing.BudgetReturn = item.BudgetReturn;
+                        existing.ReferenceBudgetCode = item.ReferenceBudgetCode;
+                        existing.BudgetLv1Code = item.BudgetLv1Code;
+                        existing.BudgetLv2Code = item.BudgetLv2Code;
+                        existing.BudgetLv3Code = item.BudgetLv3Code;
+                        existing.BudgetLv4Code = item.BudgetLv4Code;
+                        existing.BudgetLv5Code = item.BudgetLv5Code;
+                        existing.BudgetLv6Code = item.BudgetLv6Code;
+                        existing.DetailInitialAmount = item.DetailInitialAmount;
+                        existing.BudgetAmount = item.BudgetAmount;
+                        existing.AllocateAmount = item.AllocateAmount;
+                        existing.ReservedAmount = item.ReservedAmount;
+                        existing.AdvanceAmount = item.AdvanceAmount;
+                        existing.ActualAmount = item.ActualAmount;
+                        existing.VoucherPaymentAmt = item.VoucherPaymentAmt;
+
+                        await _repository.UpdateAsync(existing);
+                        Console.WriteLine($"[INFO] Updated MBudgetavailable with BudgetId {existing.BudgetId}");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"[ERROR] Failed to process MBudgetavailable BudgetId {item.BudgetId}: {ex.Message}");
+                }
+            }
+        }
+
+
+    }
+    public async Task<BudgetAvailableResponse> GetAllAsync(string filter)
     {
         try
         {
-            var entities = await _repository.GetAllAsync();
+            var entities = await _repository.GetAllAsync(filter);
             if (entities == null || !entities.Any())
             {
-                await BatchEndOfDay_Budgetavailable();
-                entities = await _repository.GetAllAsync();
+                await BatchEndOfDay_BudgetavailableBySearch(filter);
+                entities = await _repository.GetAllAsync(filter);
 
                 if (entities == null || !entities.Any())
                 {

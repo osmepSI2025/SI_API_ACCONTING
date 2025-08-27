@@ -21,9 +21,9 @@ TBudgetMappingService budgetMappingService)
 
         // GET: /<controller>/
         [HttpGet("Master/GetBudgetavailable")]
-        public async Task<IActionResult> Get_Budgetavailable()
+        public async Task<IActionResult> Get_Budgetavailable(string? filter)
         {
-            var result = await _budgetService.GetAllAsync();
+            var result = await _budgetService.GetAllAsync(filter);
             return Ok(result);
         }
         [HttpGet("batch-Budgetavailable")]
@@ -35,9 +35,9 @@ TBudgetMappingService budgetMappingService)
 
         // GET: /<Budgetentire>/
         [HttpGet("Budgetentire")]
-        public async Task<IActionResult> Get_MBudgetentire()
+        public async Task<IActionResult> Get_MBudgetentire(string? filter)
         {
-            var result = await _budgetentireService.GetAllAsync();
+            var result = await _budgetentireService.GetAllAsync(filter);
             return Ok(result);
         }
         [HttpGet("/api/SYS-ACCOUNT/batch-Budgetentire")]
@@ -49,9 +49,9 @@ TBudgetMappingService budgetMappingService)
 
         // GET: /<BudgetMapping>/
         [HttpGet("BudgetMapping")]
-        public async Task<IActionResult> Get_BudgetMapping()
+        public async Task<IActionResult> Get_BudgetMapping(string? filter)
         {
-            var result = await _budgetMappingService.GetAllAsync();
+            var result = await _budgetMappingService.GetAllAsync(filter);
             return Ok(result);
         }
         [HttpGet("batch-BudgetMapping")]
