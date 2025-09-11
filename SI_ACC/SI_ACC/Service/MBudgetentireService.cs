@@ -78,7 +78,7 @@ public class MBudgetentireService
                             AuxiliaryIndex2 = e.AuxiliaryIndex2,
                             AuxiliaryIndex3 = e.AuxiliaryIndex3,
                             AuxiliaryIndex4 = e.AuxiliaryIndex4
-                        }).ToList()
+                        }).OrderBy(e=>e.EntryNo).ToList()
                     };
                     return response;
                 }
@@ -122,7 +122,7 @@ public class MBudgetentireService
                         AuxiliaryIndex2 = e.AuxiliaryIndex2,
                         AuxiliaryIndex3 = e.AuxiliaryIndex3,
                         AuxiliaryIndex4 = e.AuxiliaryIndex4
-                    }).ToList()
+                    }).OrderBy(e => e.EntryNo).ToList()
                 };
                 return response;
             }

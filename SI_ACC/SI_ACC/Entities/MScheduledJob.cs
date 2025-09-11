@@ -9,9 +9,9 @@ public partial class MScheduledJob
 
     public string? JobName { get; set; }
 
-    public short? RunHour { get; set; }
+    public short RunHour { get; set; }
 
-    public short? RunMinute { get; set; }
+    public short RunMinute { get; set; }
 
     public bool? IsActive { get; set; }
 }

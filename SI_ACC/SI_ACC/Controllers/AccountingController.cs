@@ -43,7 +43,21 @@ TBudgetMappingService budgetMappingService)
         [HttpGet("/api/SYS-ACCOUNT/batch-Budgetentire")]
         public async Task<IActionResult> Batch_MBudgetentire()
         {
-            await _budgetentireService.BatchEndOfDay_BudgetEntire();
+            // year thai
+            int currentYearThai = DateTime.Now.Year + 543;
+            for (int yy = currentYearThai; yy <= currentYearThai + 1; yy++)
+            {
+                string yearth = (yy % 100).ToString();
+                for (int mm = 1; mm <= 12; mm++)
+                {
+                    string bdy = "budgetyear eq '" + yearth + "/" + mm.ToString()+ "'";
+                 //   string bdy = "budgetyear eq '68/2' and currentbudgetstatus ne 'Cancel' and budgetlevel eq 6";
+
+
+                    await _budgetentireService.BatchEndOfDay_BudgetEntireBySearch(bdy);
+                }
+
+            }
             return Ok();
         }
 
