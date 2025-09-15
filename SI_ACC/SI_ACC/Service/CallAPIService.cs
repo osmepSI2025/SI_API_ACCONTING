@@ -320,14 +320,7 @@ namespace SI_ACC.Services
                 var content = await response.Content.ReadAsStringAsync();
                 var jsonNode = JsonNode.Parse(content);
 
-                ////test
-                //var filePath = Path.GetFullPath("MocData/M_RiskFactor-Data.json", AppContext.BaseDirectory);
-                //var jsonString = await File.ReadAllTextAsync(filePath);
-                //var jsonNode = JsonNode.Parse(jsonString);
-
-                //   var result = JsonSerializer.Deserialize<RiskFactorApiResponse>(jsonString, options);
-                // Deserialize and return
-                //   return jsonString;
+         
                 return jsonNode?.ToJsonString(new JsonSerializerOptions { WriteIndented = true }) ?? "{}";
             }
             catch (Exception ex)

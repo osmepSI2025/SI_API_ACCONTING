@@ -50,7 +50,6 @@ builder.Services.AddHttpClient<CallAPIService>();
 // Add Quartz.NET services
 builder.Services.AddQuartz(q =>
 {
-  //  q.UseMicrosoftDependencyInjectionScopedJobFactory();
     q.AddJob<ScheduledJobPuller>(j => j.WithIdentity("ScheduledJobPuller").StoreDurably());
 });
 
